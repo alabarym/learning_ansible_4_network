@@ -1,0 +1,18 @@
+---
+
+- name: Run show commands on routers
+  hosts: cisco_routers
+  gather_facts: false
+
+  vars:
+    ntp_server: 192.168.255.100
+    log_server: 10.255.100.1
+
+  tasks:
+
+    - name: run sh ip int br
+      raw: sh ip int brief  | ex unass
+      register: results_of_sh_ip_int_brief
+
+    - name: Debug output of the variable written to register
+      debug: var=results_of_sh_ip_int_brief.stdout_lines

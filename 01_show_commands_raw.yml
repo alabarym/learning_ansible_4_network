@@ -1,0 +1,29 @@
+---
+
+- name: Run show commands on routers
+  hosts: cisco_routers
+  gather_facts: false
+
+  vars:
+    ntp_server: 192.168.255.100
+    log_server: 10.255.100.1
+
+  tasks:
+
+    - name: run sh ip int br
+      raw: sh ip int br | ex unass
+
+    - name: run sh ip route
+      raw: sh ip route
+
+- name: Run show commands on switches
+  hosts: cisco_switches
+  gather_facts: false
+
+  tasks:
+
+    - name: run sh int status
+      raw: sh int status
+
+    - name: run sh vlan
+      raw: show vlan
